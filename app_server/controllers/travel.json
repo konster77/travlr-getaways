@@ -1,0 +1,17 @@
+const fs = require('fs');
+const path = require('path');
+
+const dataPath = path.join(__dirname, '..', '..', 'data', 'trips.json');
+let trips = [];
+try {
+  const raw = fs.readFileSync(dataPath, 'utf8');
+  trips = JSON.parse(raw);
+} catch (e) {
+  trips = [];
+}
+
+const travel = (req, res) => {
+  res.render('travel', { title: 'Travel', trips });
+};
+
+module.exports = { travel };

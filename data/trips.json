@@ -1,0 +1,23 @@
+[
+    {
+        "code": "GAL01",
+        "name": "Gale Reef",
+        "image": "reef1.jpg",
+        "price": 899,
+        "description": "Gale Reef – Sed et augue lorem. In sit amet placerat arcu."
+    },
+    {
+        "code": "DAW02",
+        "name": "Dawson’s Reef",
+        "image": "reef2.jpg",
+        "price": 799,
+        "description": "Dawson’s Reef – Integer magna leo, posuere et dignissim vitae."
+    },
+    {
+        "code": "CLA03",
+        "name": "Claire’s Reef",
+        "image": "reef3.jpg",
+        "price": 749,
+        "description": "Claire’s Reef – Donec sed felis risus. Nulla facilisi."
+    }
+]
