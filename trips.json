@@ -1,0 +1,35 @@
+[
+    {
+        "code": "BALI7",
+        "name": "Bali Bliss: 7-Day Escape",
+        "length": 7,
+        "start": "2026-01-12",
+        "resort": "Ubud Serenity Resort",
+        "perPerson": 1899,
+        "image": "bali.jpg",
+        "description": "Relax in rice terraces, temples, and beaches. Daily breakfast and two excursions included.",
+        "status": "ACTIVE"
+    },
+    {
+        "code": "ALPS10",
+        "name": "Swiss Alps Adventure",
+        "length": 10,
+        "start": "2026-02-05",
+        "resort": "Zermatt Peak Lodge",
+        "perPerson": 2799,
+        "image": "alps.jpg",
+        "description": "Glaciers, cog railways, and chocolate workshops. Lift passes for 3 days included.",
+        "status": "ACTIVE"
+    },
+    {
+        "code": "CANCUN5",
+        "name": "Cancún All-Inclusive Getaway",
+        "length": 5,
+        "start": "2025-12-15",
+        "resort": "Playa Azul Resort",
+        "perPerson": 1299,
+        "image": "cancun.jpg",
+        "description": "White-sand beaches, snorkeling, and nightly entertainment. Airport transfers included.",
+        "status": "ACTIVE"
+    }
+]

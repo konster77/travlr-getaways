@@ -1,0 +1,74 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Travlr Getaways</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        body {
+            font-family: system-ui, Arial, sans-serif;
+            margin: 2rem;
+        }
+
+        h1 {
+            margin-bottom: .5rem;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: .5rem;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .muted {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Travlr Getaways</h1>
+    <p class="muted">Live trips from the database:</p>
+
+    <table id="tripsTable">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Resort</th>
+                <th>Start</th>
+                <th>Length (days)</th>
+                <th>Price (USD)</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+    async function loadTrips() {
+      const res = await fetch('/api/trips');
+      const trips = await res.json();
+      const tbody = document.querySelector('#tripsTable tbody');
+      tbody.innerHTML = trips.map(t => `
+        <tr>
+          <td>${t.code}</td>
+          <td>${t.name}</td>
+          <td>${t.resort}</td>
+          <td>${new Date(t.start).toLocaleDateString()}</td>
+          <td>${t.length}</td>
+          <td>$${t.perPerson.toLocaleString()}</td>
+        </tr>`).join('');
+    }
+    loadTrips();
+    </script>
+</body>
+</html>
