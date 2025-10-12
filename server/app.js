@@ -1,27 +1,36 @@
 ﻿require('dotenv').config();
 const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-const connectDB = require('./config/db');
+const mongoose = require('mongoose');
 
 const app = express();
-
-app.use(cors());
 app.use(express.json());
-app.use(morgan('dev'));
 
-const path = require('path');
-app.use(express.static(path.join(__dirname, 'public')));
+// --- (optional) quick logger so you can see requests in the console ---
+app.use((req, res, next) => { console.log(req.method, req.url); next(); });
 
-const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/travlr';
-connectDB(mongoUri);
+// --- DB connect ---
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('MongoDB connected: travlr'))
+  .catch(err => console.error('Mongo error', err));
 
-app.use('/api', require('./routes/api'));
+// --- API router ---
+const apiRouter = require('./app_api/routes');
+app.use('/api', apiRouter);
 
-app.get('/health', (_req, res) => res.json({ ok: true }));
+// --- Health route (must be BEFORE 404 handler) ---
+app.get('/health', (req, res) => res.status(200).json({ ok: true }));
 
-const port = process.env.PORT || 3000;
-app.get('/', (_req, res) => {
-  res.send('Travlr API is running. Try <a href="/api/trips">/api/trips</a>.');
+// --- Frontend root (optional) ---
+app.get('/', (req, res) => res.status(200).send('Travlr Getaways Home'));
+
+// --- 404 handler (keep this near the end) ---
+app.use((req, res) => res.status(404).json({ message: 'Not Found' }));
+
+// --- Error handler (last) ---
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  res.status(err.status || 500).json({ message: err.message || 'Internal Server Error' });
 });
-app.listen(port, () => console.log(`🚀 API listening on http://localhost:${port}`));
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`API listening on http://localhost:${PORT}`));
