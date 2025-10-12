@@ -9,6 +9,7 @@
     "seed:trips": "node server/seed/seed-trips.js"
   },
   "dependencies": {
+    "bootstrap": "^5.3.8",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^4.21.2",

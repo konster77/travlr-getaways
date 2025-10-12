@@ -1,0 +1,9 @@
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+  <div class="col" *ngFor="let t of trips()">
+    <app-trip-card
+      [trip]="t"
+      (edit)="onEdit($event)"
+      (remove)="onDelete($event)">
+    </app-trip-card>
+  </div>
+</div>
