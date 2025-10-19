@@ -1,0 +1,73 @@
+:root {
+  --bg: #f3f4f6;            /* light gray background */
+  --card: #ffffff;          /* white card background */
+  --text: #1e293b;          /* dark text */
+  --subtle: #475569;        /* medium text */
+  --primary: #2563eb;       /* blue accent */
+  --primary-hover: #1d4ed8;
+  --border: #d1d5db;        /* light border */
+  --danger: #dc2626;        /* red */
+}
+
+* { box-sizing: border-box; }
+
+.auth-page {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.topbar {
+  width: 100%;
+  height: 56px;
+  background: #111827;
+  color: #f9fafb;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.center {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.card {
+  background: var(--card);
+  padding: 32px 28px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border);
+}
+
+h2 {
+  text-align: center;
+  color: var(--text);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin: 10px 0 6px;
+  color: var(--subtle);
+  font-size: 0.95rem;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  background: #f9fafb;
+}

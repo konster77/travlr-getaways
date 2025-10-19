@@ -1,27 +1,33 @@
-﻿require('dotenv').config();
+﻿const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/travlr';
-
 (async () => {
   try {
-    await mongoose.connect(MONGODB_URI);
+    const uri = process.env.MONGODB_URI;
+    if (!uri) {
+      throw new Error('MONGODB_URI is missing. Create server\\.env with MONGODB_URI=...');
+    }
+
+    await mongoose.connect(uri);
+
     const email = 'admin@example.com';
     const password = 'Admin!234';
-    const passwordHash = await bcrypt.hash(password, 10);
 
     let user = await User.findOne({ email });
     if (!user) {
-      user = await User.create({ email, passwordHash, role: 'admin' });
+      const passwordHash = await bcrypt.hash(password, 10);
+      user = await User.create({ email, passwordHash, role: 'admin', name: 'Site Admin' });
       console.log('Created admin:', email, 'password:', password);
     } else {
       console.log('Admin exists:', email);
     }
   } catch (e) {
-    console.error(e);
+    console.error('Seed error:', e.message);
   } finally {
-    await mongoose.disconnect();
+    await mongoose.disconnect().catch(() => {});
   }
 })();

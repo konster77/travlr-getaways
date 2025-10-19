@@ -1,0 +1,26 @@
+[
+  {
+    "code": "HAWAII7",
+    "name": "Hawaii Island Escape",
+    "length": 7,
+    "start": "2026-02-10",
+    "resort": "Kona",
+    "perPerson": true,
+    "price": 1899,
+    "image": "hawaii.jpg",
+    "description": "Seven days in paradise.",
+    "location": "Hawaii"
+  },
+  {
+    "code": "ALPS5",
+    "name": "Swiss Alps Trek",
+    "length": 5,
+    "start": "2026-06-01",
+    "resort": "Zermatt",
+    "perPerson": true,
+    "price": 1499,
+    "image": "alps.jpg",
+    "description": "Glaciers and scenic hikes.",
+    "location": "Switzerland"
+  }
+]

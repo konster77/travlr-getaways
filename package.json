@@ -4,8 +4,8 @@
   "private": true,
   "type": "commonjs",
   "scripts": {
-    "dev": "nodemon server/app.js",
     "start": "node server/app.js",
+    "dev": "nodemon server/app.js",
     "seed:trips": "node server/seed/seed-trips.js"
   },
   "dependencies": {
@@ -14,6 +14,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^4.21.2",
+    "express-handlebars": "^8.0.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.8.7",
     "morgan": "^1.10.0",

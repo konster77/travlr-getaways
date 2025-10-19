@@ -1,42 +1,33 @@
 ﻿require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
+const express=require('express');
+const path=require('path');
+const cors=require('cors');
+const helmet=require('helmet');
+const cookieParser=require('cookie-parser');
+const mongoose=require('mongoose');
+const hbs = require('hbs');     
 
-require('dotenv').config();
-
-const app = express();
-app.use(cors());
+const app=express();
+app.use(helmet());
+app.use(cors({origin:true, credentials:true}));
 app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+app.use(cookieParser());
 
-app.use((req, res, next) => { console.log(req.method, req.url); next(); });
+app.set('views', path.join(__dirname,'views'));
+app.set('view engine','hbs');
+hbs.registerPartials(path.join(__dirname, 'views', 'partials'));  
+app.use('/public', express.static(path.join(__dirname,'public')));
 
-// --- DB connect ---
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('MongoDB connected: travlr'))
-  .catch(err => console.error('Mongo error', err));
+mongoose.connect(process.env.MONGODB_URI);
 
-// --- API router ---
-const apiRouter = require('./app_api/routes');
-app.use('/api', apiRouter);
-app.use('/api/auth', require('./routes/auth'));   
-app.use('/api/trips', require('./routes/trips'));
+// Public MVC pages
+app.use('/', require('./routes/web'));
 
+// REST API
+app.use('/api/auth', require('./routes/auth'));       // customer+admin login/register
+app.use('/api/trips', require('./routes/trips'));     // list/search trips public; writes admin
+app.use('/api/bookings', require('./routes/bookings'));// customer bookings (protected)
+app.use('/api/itineraries', require('./routes/itineraries')); // booking itineraries (protected)
 
-// --- Health route (must be BEFORE 404 handler) ---
-app.get('/health', (req, res) => res.status(200).json({ ok: true }));
-
-// --- Frontend root (optional) ---
-app.get('/', (req, res) => res.status(200).send('Travlr Getaways Home'));
-
-// --- 404 handler (keep this near the end) ---
-app.use((req, res) => res.status(404).json({ message: 'Not Found' }));
-
-// --- Error handler (last) ---
-app.use((err, req, res, next) => {
-  console.error('Unhandled error:', err);
-  res.status(err.status || 500).json({ message: err.message || 'Internal Server Error' });
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`API listening on http://localhost:${PORT}`));
+app.listen(3000, ()=>console.log('🚀 http://localhost:3000'));

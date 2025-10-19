@@ -1,0 +1,14 @@
+<h2>Available Trips</h2>
+
+{{#if trips.length}}
+  <ul>
+    {{#each trips}}
+      <li>
+        <strong>{{name}}</strong> — {{location}} — {{length}} days — ${{price}}
+        <div>Starts: {{start}} • Resort: {{resort}}</div>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p>No trips found.</p>
+{{/if}}
