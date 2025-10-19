@@ -18,6 +18,7 @@ hbs.registerPartials(path.join(__dirname, 'app_server', 'views', 'partials'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
+app.use('/api/auth', require('./routes/auth'));
 app.use('/', indexRouter);
 app.use('/', travelRouter);
 

@@ -1,0 +1,16 @@
+<div style="max-width:420px;margin:3rem auto;">
+  <h2>Admin Login</h2>
+  <form (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
+    <label>Email</label>
+    <input name="email" [(ngModel)]="email" required type="email" class="form-control"/>
+
+    <label style="margin-top:10px;">Password</label>
+    <input name="password" [(ngModel)]="password" required type="password" class="form-control"/>
+
+    <button class="btn btn-primary" style="margin-top:14px;" [disabled]="f.invalid || loading">
+      {{ loading ? 'Signing in...' : 'Login' }}
+    </button>
+
+    <p *ngIf="error" style="color:#b00020;margin-top:10px;">{{ error }}</p>
+  </form>
+</div>

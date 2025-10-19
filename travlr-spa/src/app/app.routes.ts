@@ -1,12 +1,11 @@
 import { Routes } from '@angular/router';
-import { TripList } from './components/trip-list/trip-list';
-import { TripAdd } from './components/trip-add/trip-add';
-import { TripEdit } from './components/trip-edit/trip-edit';
+import { LoginComponent } from './pages/login/login';
+import { AuthGuard } from './core/auth.guard';
+import { AdminComponent } from './pages/admin/admin';
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'trips' },
-  { path: 'trips', component: TripList },
-  { path: 'trips/add', component: TripAdd },
-  { path: 'trips/:code/edit', component: TripEdit },
-  { path: '**', redirectTo: 'trips' }
+  { path: 'login', component: LoginComponent },
+  { path: 'admin', canActivate: [AuthGuard], component: AdminComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login' }
 ];
